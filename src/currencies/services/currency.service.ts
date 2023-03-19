@@ -1,21 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateCurrencyDto } from '../dtos/create-currency.dto';
+import { Currency } from '../entities/currency.entity';
+import { CurrencyRepository } from '../repositories/currency.repository';
 
 @Injectable()
 export class CurrencyService {
-  create(createCurrencyDto: CreateCurrencyDto) {
-    return 'This action adds a new currency';
-  }
+  private readonly logger = new Logger(CurrencyService.name);
 
-  findAll() {
-    return `This action returns all currency`;
-  }
+  constructor(private readonly currencyRepository: CurrencyRepository) {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} currency`;
-  }
+  async create(createCurrencyDto: CreateCurrencyDto): Promise<Currency> {
+    const { code } = createCurrencyDto;
 
-  remove(id: number) {
-    return `This action removes a #${id} currency`;
+    this.logger.debug(`Creating a new currency: ${code}`);
+
+    const dbCurrency = await this.currencyRepository.findByCode(code);
+
+    if (dbCurrency) {
+      throw new HttpException(
+        `Currency ${code} already exists`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const currency = await this.currencyRepository.create(createCurrencyDto);
+
+    return currency;
   }
 }

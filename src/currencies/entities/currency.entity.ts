@@ -3,9 +3,6 @@ import { CustomBaseEntity } from './custom-base.entity';
 
 @Entity({ tableName: 'currencies' })
 export class Currency extends CustomBaseEntity {
-  @Property()
+  @Property({ unique: true })
   code: string;
-
-  @Property({ type: 'decimal' })
-  value: number;
 }
