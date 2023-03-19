@@ -17,20 +17,22 @@ export class CurrencyService {
   ) {}
 
   async create(createCurrencyDto: CreateCurrencyDto): Promise<Currency> {
-    const { code } = createCurrencyDto;
+    const formatedCode = createCurrencyDto.code.toUpperCase();
 
-    this.logger.debug(`Creating a new currency: ${code}`);
+    this.logger.debug(`Creating a new currency: ${formatedCode}`);
 
-    const dbCurrency = await this.currencyRepository.findByCode(code);
+    const dbCurrency = await this.currencyRepository.findByCode(formatedCode);
 
     if (dbCurrency) {
       throw new HttpException(
-        `Currency ${code} already exists`,
+        `Currency ${formatedCode} already exists`,
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    const currency = await this.currencyRepository.create(createCurrencyDto);
+    const currency = await this.currencyRepository.create({
+      code: formatedCode,
+    });
 
     return currency;
   }

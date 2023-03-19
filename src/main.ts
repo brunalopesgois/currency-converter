@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { HttpExceptionFilter } from '@shared/filters/http-exception.filter';
@@ -10,6 +10,8 @@ async function bootstrap() {
   });
 
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const configService = app.get(ConfigService);
 
