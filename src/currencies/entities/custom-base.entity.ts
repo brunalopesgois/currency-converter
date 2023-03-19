@@ -8,8 +8,8 @@ export abstract class CustomBaseEntity {
   createdAt: Date = new Date();
 
   @Property({ onUpdate: () => new Date(), nullable: true })
-  updatedAt: Date = new Date();
+  updatedAt: Date;
 
   @Property({ nullable: true })
-  deletedAt: Date = new Date();
+  deletedAt: Date;
 }

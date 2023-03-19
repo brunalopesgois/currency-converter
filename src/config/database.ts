@@ -12,4 +12,11 @@ export default () => ({
     pathTs: __dirname + './../shared/migrations',
     snapshot: false,
   },
+  seeder: {
+    path: __dirname + './../../dist/shared/seeds',
+    pathTs: __dirname + './../shared/seeds',
+    defaultSeeder: 'DatabaseSeeder',
+    emit: 'ts',
+    fileName: (className: string) => className,
+  },
 });
