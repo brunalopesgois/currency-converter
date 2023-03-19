@@ -1,7 +1,10 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from '@shared/filters/http-exception.filter';
+import fs from 'fs';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -16,6 +19,13 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   const port = configService.get('PORT') || 3000;
+
+  const jsonFile = fs.readFileSync(
+    join(process.cwd(), 'docs/swagger.json'),
+    'utf8',
+  );
+  const document = JSON.parse(jsonFile);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(port);
 
