@@ -51,7 +51,7 @@ export class RatesService {
       ...response.data.rates,
     };
 
-    await this.cacheService.set(base, { rates, base }, 1800000);
+    await this.cacheService.set(base, { rates, base }, 86400000);
 
     this.logger.debug(
       `Saving data in cache: ${JSON.stringify({ rates, base })}`,
