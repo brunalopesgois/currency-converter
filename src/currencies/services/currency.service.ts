@@ -1,10 +1,11 @@
 import { fx } from 'money';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateCurrencyDto } from '../dtos/create-currency.dto';
-import { GetCurrencyConvertionDto } from '../dtos/get-currency-convertion.dto';
 import { Currency } from '../entities/currency.entity';
 import { CurrencyRepository } from '../repositories/currency.repository';
 import { RatesService } from '@shared/external/rates.service';
+import { GetCurrencyConversionDto } from '../dtos/get-currency-conversion.dto';
+import { IConversionResponse } from '@shared/interfaces/conversion-response.interface';
 
 @Injectable()
 export class CurrencyService {
@@ -34,12 +35,14 @@ export class CurrencyService {
     return currency;
   }
 
-  async getCurrencyConvertion(params: GetCurrencyConvertionDto) {
+  async getCurrencyConversion(
+    params: GetCurrencyConversionDto,
+  ): Promise<IConversionResponse[]> {
     const { code, value } = params;
 
     const registeredCurrencies = await this.currencyRepository.find();
-    const currenciesForConvertion = registeredCurrencies.map((cur) => cur.code);
-    const stringCurrencies = currenciesForConvertion.join(',');
+    const currenciesForConversion = registeredCurrencies.map((cur) => cur.code);
+    const stringCurrencies = currenciesForConversion.join(',');
 
     const { rates, base } = await this.ratesService.feedRates(
       stringCurrencies,
@@ -49,14 +52,14 @@ export class CurrencyService {
     fx.base = base;
     fx.rates = rates;
 
-    const convertionResult: any[] = [];
-    for (const currency of currenciesForConvertion) {
+    const conversionResult: IConversionResponse[] = [];
+    for (const currency of currenciesForConversion) {
       if (currency != code) {
         const converted = await fx.convert(value, { from: code, to: currency });
-        convertionResult.push({ code: currency, value: converted });
+        conversionResult.push({ code: currency, value: converted });
       }
     }
 
-    return convertionResult;
+    return conversionResult;
   }
 }

@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Query } from '@nestjs/common';
+import { IConversionResponse } from '@shared/interfaces/conversion-response.interface';
 import { CreateCurrencyDto } from '../dtos/create-currency.dto';
-import { GetCurrencyConvertionDto } from '../dtos/get-currency-convertion.dto';
+import { GetCurrencyConversionDto } from '../dtos/get-currency-conversion.dto';
 import { Currency } from '../entities/currency.entity';
 import { CurrencyService } from '../services/currency.service';
 
@@ -15,8 +16,10 @@ export class CurrencyController {
     return this.currencyService.create(createCurrencyDto);
   }
 
-  @Get('convertion')
-  async getCurrencyConvertion(@Query() params: GetCurrencyConvertionDto) {
-    return this.currencyService.getCurrencyConvertion(params);
+  @Get('conversion')
+  async getCurrencyConversion(
+    @Query() params: GetCurrencyConversionDto,
+  ): Promise<IConversionResponse[]> {
+    return this.currencyService.getCurrencyConversion(params);
   }
 }
