@@ -7,6 +7,12 @@ import { Currency } from '../entities/currency.entity';
 export class CurrencyRepository {
   constructor(private readonly em: EntityManager) {}
 
+  async find(options?: Record<string, unknown>[]): Promise<Currency[] | null> {
+    const currencies = await this.em.find(Currency, { ...options });
+
+    return currencies;
+  }
+
   async findById(id: string): Promise<Currency | null> {
     const currency = await this.em.findOne(Currency, { id });
 
