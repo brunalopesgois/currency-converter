@@ -1,5 +1,6 @@
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import environment from './config/environment';
@@ -11,6 +12,13 @@ import { CurrencyModule } from './currencies/modules/currency.module';
       load: [environment],
       cache: true,
       isGlobal: true,
+    }),
+    MikroOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('database'),
+      }),
     }),
     CurrencyModule,
   ],

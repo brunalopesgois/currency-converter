@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - /data/postgres:/data/postgres
+    environment:
+      POSTGRES_USER: converter_user
+      POSTGRES_PASSWORD: q1w2e3r4
+      POSTGRES_DB: converter_db
+    networks:
+      - postgres
+networks:
+  postgres:
+    driver: bridge
