@@ -1,12 +1,22 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RatesService } from '@shared/external/rates.service';
 import { CurrencyController } from '../controllers/currency.controller';
 import { CurrencyRepository } from '../repositories/currency.repository';
 import { CurrencyService } from '../services/currency.service';
 
 @Module({
-  imports: [HttpModule],
+  imports: [
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('http'),
+      }),
+    }),
+  ],
   controllers: [CurrencyController],
-  providers: [CurrencyService, CurrencyRepository],
+  providers: [CurrencyService, CurrencyRepository, RatesService],
 })
 export class CurrencyModule {}

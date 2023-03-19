@@ -1,11 +1,10 @@
 import { fx } from 'money';
-import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateCurrencyDto } from '../dtos/create-currency.dto';
 import { GetCurrencyConvertionDto } from '../dtos/get-currency-convertion.dto';
 import { Currency } from '../entities/currency.entity';
 import { CurrencyRepository } from '../repositories/currency.repository';
-import { firstValueFrom } from 'rxjs';
+import { RatesService } from '@shared/external/rates.service';
 
 @Injectable()
 export class CurrencyService {
@@ -13,7 +12,7 @@ export class CurrencyService {
 
   constructor(
     private readonly currencyRepository: CurrencyRepository,
-    private readonly httpService: HttpService,
+    private readonly ratesService: RatesService,
   ) {}
 
   async create(createCurrencyDto: CreateCurrencyDto): Promise<Currency> {
@@ -42,25 +41,12 @@ export class CurrencyService {
     const currenciesForConvertion = registeredCurrencies.map((cur) => cur.code);
     const stringCurrencies = currenciesForConvertion.join(',');
 
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        apikey: 'VxCAPMLp1GjJKJDPPIRv84VziwsUzMYa',
-      },
-    };
-
-    const response = await firstValueFrom(
-      this.httpService.get(
-        `https://api.apilayer.com/exchangerates_data/latest?symbols=${stringCurrencies}&base=${code}`,
-        requestOptions,
-      ),
+    const { rates, base } = await this.ratesService.feedRates(
+      stringCurrencies,
+      code,
     );
-    const rates = {
-      ...response.data.rates,
-    };
 
-    fx.base = code;
+    fx.base = base;
     fx.rates = rates;
 
     const convertionResult: any[] = [];
