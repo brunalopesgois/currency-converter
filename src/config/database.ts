@@ -5,5 +5,11 @@ export default () => ({
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT) || 5432,
   type: 'postgresql',
-  autoLoadEntities: true,
+  entities: [__dirname + './../../dist/currencies/entities/**/*.js'],
+  entitiesTs: [__dirname + './../currencies/entities/**/*.ts'],
+  migrations: {
+    path: __dirname + './../../dist/shared/migrations',
+    pathTs: __dirname + './../shared/migrations',
+    snapshot: false,
+  },
 });

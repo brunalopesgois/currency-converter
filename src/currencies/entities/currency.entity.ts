@@ -1,10 +1,8 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, Property } from '@mikro-orm/core';
+import { CustomBaseEntity } from './custom-base.entity';
 
-@Entity()
-export class Currency {
-  @PrimaryKey({ type: 'uuid', defaultRaw: 'uuid_generate_v4()' })
-  id: string;
-
+@Entity({ tableName: 'currencies' })
+export class Currency extends CustomBaseEntity {
   @Property()
   code: string;
 
