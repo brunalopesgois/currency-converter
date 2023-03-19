@@ -1,5 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RatesService } from '@shared/external/rates.service';
 import { CurrencyController } from '../controllers/currency.controller';
@@ -13,6 +13,13 @@ import { CurrencyService } from '../services/currency.service';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         ...configService.get('http'),
+      }),
+    }),
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('redis'),
       }),
     }),
   ],
