@@ -40,7 +40,8 @@ export class CurrencyService {
   async getCurrencyConversion(
     params: GetCurrencyConversionDto,
   ): Promise<IConversionResponse[]> {
-    const { code, value } = params;
+    const { value } = params;
+    const code = params.code.toUpperCase();
 
     const registeredCurrencies = await this.currencyRepository.find();
     const currenciesForConversion = registeredCurrencies.map((cur) => cur.code);
