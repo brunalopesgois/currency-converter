@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import environment from './config/environment';
 import { CurrencyModule } from './currencies/modules/currency.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CurrencyModule } from './currencies/modules/currency.module';
       }),
     }),
     CurrencyModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
