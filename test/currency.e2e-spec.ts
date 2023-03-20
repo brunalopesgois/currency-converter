@@ -5,6 +5,7 @@ import request from 'supertest';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CurrencyModule } from '../src/currencies/modules/currency.module';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { MikroORM } from '@mikro-orm/postgresql';
 
 describe('CurrencyController (e2e)', () => {
   let app: INestApplication;
@@ -48,13 +49,39 @@ describe('CurrencyController (e2e)', () => {
     await app.init();
   });
 
+  afterAll(async () => {
+    const orm = await MikroORM.init({
+      dbName: process.env.TEST_DB_NAME,
+      user: process.env.TEST_DB_USER,
+      password: process.env.TEST_DB_PASSWORD,
+      host: process.env.TEST_DB_HOST,
+      port: parseInt(process.env.TEST_DB_PORT),
+      type: 'postgresql',
+      entities: [Currency],
+    });
+
+    await orm.em.nativeDelete(Currency, { code: 'AOA' });
+  });
+
   it('/currencies/conversion (GET)', async () => {
     const response = await request(app.getHttpServer())
       .get('/currencies/conversion')
       .query({
         code: 'BRL',
-        value: 12,
+        value: 100,
       })
       .expect(200);
+
+    expect(response.body[0].code).toBe('USD');
+    expect(response.body[0].value).toBeDefined();
+  });
+
+  it('/currencies (POST)', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/currencies')
+      .send({ code: 'AOA' })
+      .expect(201);
+
+    expect(response.body.code).toBe('AOA');
   });
 });
