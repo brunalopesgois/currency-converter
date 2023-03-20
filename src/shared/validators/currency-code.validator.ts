@@ -10,11 +10,15 @@ import {
 @Injectable()
 export class ValidCurrencyCodeRule implements ValidatorConstraintInterface {
   async validate(value: string) {
-    if (Object.keys(ECurrencyCode).includes(value.toUpperCase())) {
-      return true;
+    if (!value) {
+      return false;
     }
 
-    return false;
+    if (!Object.keys(ECurrencyCode).includes(value.toUpperCase())) {
+      return false;
+    }
+
+    return true;
   }
 
   defaultMessage(args: ValidationArguments) {
