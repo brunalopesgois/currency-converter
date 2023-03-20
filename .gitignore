@@ -36,4 +36,3 @@ lerna-debug.log*
 
 # Local environment files
 .env
-.test.env
