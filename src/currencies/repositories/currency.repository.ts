@@ -13,12 +13,6 @@ export class CurrencyRepository {
     return currencies;
   }
 
-  async findById(id: string): Promise<Currency | null> {
-    const currency = await this.em.findOne(Currency, { id });
-
-    return currency;
-  }
-
   async findByCode(code: string): Promise<Currency | null> {
     const currency = await this.em.findOne(Currency, { code });
 
