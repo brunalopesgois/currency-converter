@@ -12,6 +12,19 @@ services:
       POSTGRES_DB: converter_db
     networks:
       - postgres
+  postgres-test:
+    image: postgres:latest
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /data/postgres-test:/data/postgres
+    environment:
+      POSTGRES_USER: test_converter_user
+      POSTGRES_PASSWORD: q1w2e3r4
+      POSTGRES_DB: test_converter_db
+    networks:
+      - postgres
   redis:
     image: redis:6.2-alpine
     restart: always
