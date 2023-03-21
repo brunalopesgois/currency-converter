@@ -2,6 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
+import tracer from 'dd-trace';
 import { HttpExceptionFilter } from '@shared/filters/http-exception.filter';
 import fs from 'fs';
 import { join } from 'path';
@@ -26,6 +27,8 @@ async function bootstrap() {
   );
   const document = JSON.parse(jsonFile);
   SwaggerModule.setup('docs', app, document);
+
+  tracer.init();
 
   await app.listen(port);
 

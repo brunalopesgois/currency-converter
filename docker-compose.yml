@@ -50,6 +50,18 @@ services:
       - redis:/data
     networks:
       - common
+  datadog:
+    image: gcr.io/datadoghq/agent:latest
+    environment:
+      - DD_API_KEY=9c9d7621334ee907c7bf0128e0f02f78
+      - DD_SITE=datadoghq.com
+      - DD_ENV=api
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=false
+      - DD_APM_ENABLED=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
 networks:
   common: {}
 volumes:
