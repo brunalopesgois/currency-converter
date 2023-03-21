@@ -8,22 +8,34 @@ export class CurrencyRepository {
   constructor(private readonly em: EntityManager) {}
 
   async find(options?: Record<string, unknown>[]): Promise<Currency[] | null> {
-    const currencies = await this.em.find(Currency, { ...options });
+    const emFork = this.em.fork();
+
+    const currencies = await emFork.find(Currency, { ...options });
 
     return currencies;
   }
 
   async findByCode(code: string): Promise<Currency | null> {
-    const currency = await this.em.findOne(Currency, { code });
+    const emFork = this.em.fork();
+
+    const currency = await emFork.findOne(Currency, { code });
 
     return currency;
   }
 
   async create(payload: CreateCurrencyDto): Promise<Currency> {
-    const currency = await this.em.create(Currency, payload);
+    const emFork = this.em.fork();
 
-    await this.em.flush();
+    const currency = await emFork.create(Currency, payload);
+
+    await emFork.flush();
 
     return currency;
+  }
+
+  async delete(id: string): Promise<void> {
+    const emFork = this.em.fork();
+
+    await emFork.nativeDelete(Currency, { id });
   }
 }

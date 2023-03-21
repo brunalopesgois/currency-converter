@@ -5,6 +5,7 @@
 Essa API tem como objetivo disponibilizar uma consulta de conversão de valor de um produto N. Ela terá como padrão a conversão para real, dólar, euro e rúpias indianas, porém será possível o cadastro de novas moedas. Ao informar o valor de um produto, o client terá como retorno a conversão desse valor nas moedas previamente cadastradas.
 
 ## Pré-requisitos
+
 - Docker
 - Docker compose
 
@@ -17,6 +18,20 @@ $ docker compose up (opcional: -d)
 A aplicação se encontrará disponível no endereço: **http://localhost:3010**
 
 ## Teste
+
+Docker
+
+```bash
+# unit tests
+$ yarn run docker:test
+
+# e2e tests
+$ yarn run docker:test:e2e
+```
+
+Local
+
+> Obs: Para executar os testes localmente é necessário ter o node, npm e yarn instalados. Além disso, alterar os host names no arquivo .env
 
 ```bash
 # unit tests

@@ -4,6 +4,7 @@ services:
     build:
       dockerfile: ./docker/Dockerfile.dev
       context: .
+    container_name: converter-service
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
@@ -22,6 +23,7 @@ services:
       - redis
   postgres:
     image: postgres:latest
+    container_name: postgres
     ports:
       - '5432:5432'
     volumes:
@@ -34,6 +36,7 @@ services:
       - common
   postgres-test:
     image: postgres:latest
+    container_name: postgres-test
     ports:
       - '5433:5432'
     volumes:
@@ -47,6 +50,7 @@ services:
       - common
   redis:
     image: redis:6.2-alpine
+    container_name: redis
     restart: always
     ports:
       - '6379:6379'
