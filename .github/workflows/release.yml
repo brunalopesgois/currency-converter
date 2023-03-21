@@ -21,4 +21,4 @@ jobs:
       - name: Run release
         run: yarn release --ci
         env:
-          MY_TOKEN: ${{ secrets.MY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
