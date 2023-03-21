@@ -17,7 +17,7 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up -d --build
 
       - name: Change ownership
-        run: chown runner ./node_modules
+        run: sudo chown runner ./node_modules
 
       - name: Install node
         uses: actions/setup-node@v2
