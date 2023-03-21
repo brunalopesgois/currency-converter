@@ -12,21 +12,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Start containers
-        run: docker-compose -f "docker-compose.yml" up -d --build
-
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install dependencies
-        run: yarn install
-
+        run: docker-compose -f "docker-compose.yml" --profile ci up -d --build
       - name: Run tests
-        run: yarn run test:e2e
-
+        run: yarn run docker:test:e2e
       - name: Stop containers
         if: always()
         run: docker-compose -f "docker-compose.yml" down
