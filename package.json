@@ -25,7 +25,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:test": "docker exec -it converter-service yarn test",
     "docker:test:e2e": "docker exec -it converter-service yarn test:e2e",
-    "migration:create": "mikro-orm migration:create"
+    "migration:create": "mikro-orm migration:create",
+    "release": "release-it"
   },
   "dependencies": {
     "@mikro-orm/cli": "^5.6.15",
@@ -52,6 +53,7 @@
     "nestjs-pino": "^3.1.2",
     "pino-http": "^8.3.3",
     "reflect-metadata": "^0.1.13",
+    "release-it": "^15.9.1",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "sinon": "^15.0.2",
@@ -62,6 +64,7 @@
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
+    "@release-it/conventional-changelog": "^5.1.1",
     "@types/cache-manager": "^4.0.1",
     "@types/express": "^4.17.13",
     "@types/jest": "27.5.0",
@@ -108,5 +111,17 @@
       "./src/config/mikro-orm.config.ts",
       "./dist/config/mikro-orm.config.js"
     ]
+  },
+  "release-it": {
+    "git": {
+      "requireBranch": "master",
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": "true"
+    },
+    "npm": {
+      "publish": "false"
+    }
   }
 }
