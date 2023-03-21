@@ -58,7 +58,7 @@ services:
       - redis:/data
     networks:
       - common
-  datadog:
+  dd-agent:
     image: gcr.io/datadoghq/agent:latest
     container_name: dd-agent
     restart: always
@@ -77,6 +77,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    networks:
+      - common
 networks:
   common: {}
 volumes:
