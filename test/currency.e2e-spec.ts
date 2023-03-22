@@ -35,8 +35,6 @@ describe('CurrencyController (e2e)', () => {
   };
 
   beforeAll(async () => {
-    jest.setTimeout(120000);
-
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         CurrencyModule,

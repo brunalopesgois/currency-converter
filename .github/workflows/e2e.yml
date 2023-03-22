@@ -31,7 +31,7 @@ jobs:
         run: yarn migrate && yarn seed
 
       - name: Run tests
-        run: yarn run test:e2e
+        run: yarn run test:e2e --forceExit
 
       - name: Stop containers
         if: always()
