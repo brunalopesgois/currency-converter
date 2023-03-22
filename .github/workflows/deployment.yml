@@ -16,8 +16,32 @@ jobs:
           node-version: 16.x
       - run: yarn install --frozen-lockfile
       - run: yarn run test
+  e2e-ci:
+    timeout-minutes: 10
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Start containers
+        run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Change ownership
+        run: sudo chown runner ./node_modules
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Migrate and seed
+        run: yarn migrate && yarn seed
+      - name: Run tests
+        run: yarn run test:e2e --forceExit
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
   deploy-develop:
-    needs: test-ci
+    needs: [test-ci, e2e-ci]
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-20.04
     concurrency: deploy-to-development
@@ -31,7 +55,7 @@ jobs:
       - run: docker build . -t converter-service -f docker/Dockerfile
       - run: echo "Deploy development"
   deploy-production:
-    needs: test-ci
+    needs: [test-ci, e2e-ci]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-20.04
     concurrency: deploy-to-production

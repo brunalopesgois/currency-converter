@@ -3,13 +3,21 @@ import { INestApplication } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import request from 'supertest';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as sinon from 'sinon';
 import { CurrencyModule } from '../src/currencies/modules/currency.module';
 import { CurrencyRepository } from '../src/currencies/repositories/currency.repository';
+import { RatesService } from '@shared/external/rates.service';
 
 describe('CurrencyController (e2e)', () => {
   let app: INestApplication;
 
   let repository: CurrencyRepository;
+
+  const ratesServiceStub: {
+    feedRates: sinon.SinonStub;
+  } = {
+    feedRates: sinon.stub(),
+  };
 
   const deleteCreatedCurrency = async () => {
     const currency = await repository.findByCode('AOA');
@@ -17,9 +25,16 @@ describe('CurrencyController (e2e)', () => {
     await repository.delete(currency.id);
   };
 
-  beforeAll(async () => {
-    jest.setTimeout(120000);
+  const stubRatesService = async () => {
+    ratesServiceStub.feedRates = sinon
+      .stub(RatesService.prototype, 'feedRates')
+      .resolves({
+        rates: { BRL: 1, USD: 0.190738, EUR: 0.177043, INR: 15.767437 },
+        base: 'BRL',
+      });
+  };
 
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         CurrencyModule,
@@ -39,6 +54,8 @@ describe('CurrencyController (e2e)', () => {
     app = moduleFixture.createNestApplication();
 
     repository = app.get(CurrencyRepository);
+
+    await stubRatesService();
 
     await app.init();
   });
