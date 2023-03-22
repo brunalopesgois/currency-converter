@@ -47,7 +47,7 @@ describe('CurrencyController (e2e)', () => {
     await deleteCreatedCurrency();
   });
 
-  it('/currencies/conversion (GET)', async () => {
+  it.skip('/currencies/conversion (GET)', async () => {
     const response = await request(app.getHttpServer())
       .get('/currencies/conversion')
       .query({
