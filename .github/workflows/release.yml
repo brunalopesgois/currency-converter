@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Initialize Git user
@@ -22,3 +24,7 @@ jobs:
         run: yarn release --ci --plugins.@release-it/conventional-changelog.infile=CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Atualize develop branch
+        run: |
+          git checkout develop
+          git merge master
