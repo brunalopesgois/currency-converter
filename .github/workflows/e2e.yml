@@ -15,6 +15,25 @@ jobs:
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d --build
+        env:
+          PORT: 3000
+          BASE_URL: http://localhost:3000
+          DB_NAME: converter_db
+          DB_USER: converter_user
+          DB_PASSWORD: q1w2e3r4
+          DB_HOST: postgres
+          DB_PORT: 5432
+          TEST_DB_NAME: test_converter_db
+          TEST_DB_USER: test_converter_user
+          TEST_DB_PASSWORD: q1w2e3r4
+          TEST_DB_HOST: postgres-test
+          TEST_DB_PORT: 5433
+          API_LAYER_URL: https://api.apilayer.com/exchangerates_data
+          API_LAYER_KEY: VxCAPMLp1GjJKJDPPIRv84VziwsUzMYa
+          HTTP_TIMEOUT: 120000
+          HTTP_MAX_REDIRECTS: 5
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
 
       - name: Change ownership
         run: sudo chown runner ./node_modules
