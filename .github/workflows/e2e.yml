@@ -15,6 +15,15 @@ jobs:
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d --build
+        env:
+          DB_NAME: test_converter_db
+          DB_USER: test_converter_user
+          DB_PASSWORD: q1w2e3r4
+          DB_HOST: postgres
+          DB_PORT: 5433
+
+      - name: Check compose
+        run: echo "$(docker ps)"
 
       - name: Change ownership
         run: sudo chown runner ./node_modules
