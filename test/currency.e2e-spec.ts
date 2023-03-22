@@ -54,7 +54,7 @@ describe('CurrencyController (e2e)', () => {
         code: 'BRL',
         value: 100,
       })
-      .expect(200);
+      .expect('');
 
     expect(response.body[0].code).toBe('USD');
     expect(response.body[0].value).toBeDefined();
