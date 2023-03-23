@@ -1,4 +1,4 @@
-# Converter API
+# Converter API 💱
 
 ## Descrição
 
