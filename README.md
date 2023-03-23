@@ -22,11 +22,9 @@ A aplicação se encontrará disponível no endereço: **http://localhost:3010**
 Docker
 
 ```bash
-# unit tests
-$ yarn run docker:test
-
-# e2e tests
-$ yarn run docker:test:e2e
+$ cd scripts/
+$ sudo chmod +x tests-without-yarn.sh
+$ sh tests-without-yarn.sh
 ```
 
 Local
