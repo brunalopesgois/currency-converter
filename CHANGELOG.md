@@ -1,5 +1,12 @@
 
 
+### [0.1.2](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.1.1...0.1.2) (2023-03-23)
+
+
+### Breaking
+
+* order ([8dcf78c](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/commit/8dcf78c5495507e20d13ba9e9f6bf622a3eee367))
+
 ### [0.1.1](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.1.0...0.1.1) (2023-03-23)
 
 
