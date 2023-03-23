@@ -1,5 +1,12 @@
 
 
+### [0.1.1](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.1.0...0.1.1) (2023-03-23)
+
+
+### Breaking
+
+* official first version :) ([24073ff](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/commit/24073ffff208bb9acf206398fc87bd062f47497c))
+
 ## [0.1.0](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.0.4...0.1.0) (2023-03-22)
 
 
