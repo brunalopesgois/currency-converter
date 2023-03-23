@@ -128,16 +128,16 @@
           "name": "conventionalcommits",
           "types": [
             {
+              "type": "breaking",
+              "section": "Breaking"
+            },
+            {
               "type": "feat",
               "section": "Features"
             },
             {
               "type": "fix",
               "section": "Bug Fixes"
-            },
-            {
-              "type": "breaking",
-              "section": "Breaking"
             }
           ]
         }
