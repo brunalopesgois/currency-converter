@@ -23,8 +23,6 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker:test": "docker exec -it converter-service yarn test",
-    "docker:test:e2e": "docker exec -it converter-service yarn test:e2e",
     "migration:create": "mikro-orm migration:create",
     "release": "release-it"
   },
@@ -137,7 +135,10 @@
               "type": "fix",
               "section": "Bug Fixes"
             },
-            {}
+            {
+              "type": "breaking",
+              "section": "Breaking"
+            }
           ]
         }
       }
