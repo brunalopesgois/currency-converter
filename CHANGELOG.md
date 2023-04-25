@@ -1,5 +1,12 @@
 
 
+### [1.1.2](https://github.com/brunalopesgois/currency-converter/compare/1.1.1...1.1.2) (2023-04-25)
+
+
+### Bug Fixes
+
+* swagger ([63d8eb6](https://github.com/brunalopesgois/currency-converter/commit/63d8eb68f68b40997aad49a2d226d533aa40f1c8))
+
 ### [1.1.1](https://github.com/brunalopesgois/currency-converter/compare/1.1.0...1.1.1) (2023-04-25)
 
 ## [1.1.0](https://github.com/brunalopesgois/currency-converter/compare/1.0.0...1.1.0) (2023-04-25)
