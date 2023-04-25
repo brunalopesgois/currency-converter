@@ -1,5 +1,7 @@
 
 
+### [1.1.1](https://github.com/brunalopesgois/currency-converter/compare/1.1.0...1.1.1) (2023-04-25)
+
 ## [1.1.0](https://github.com/brunalopesgois/currency-converter/compare/1.0.0...1.1.0) (2023-04-25)
 
 
