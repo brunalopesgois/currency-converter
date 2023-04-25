@@ -7,6 +7,12 @@
     },
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "description": "Ambiente de produção",
+      "url": "https://converter-api.fly.dev"
+    }
+  ],
   "tags": [
     {
       "name": "Currency Converter",
