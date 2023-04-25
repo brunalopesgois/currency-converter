@@ -1,0 +1,37 @@
+# fly.toml file generated for converter-api on 2023-04-13T13:22:48-03:00
+
+app = "converter-api"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "gru"
+
+[env]
+  PORT = "8080"
+  BASE_URL = "https://converter-api.fly.dev/"
+  DB_NAME = "converter_api"
+  DB_USER = "converter_api"
+  DB_HOST = "converter-db.internal"
+  DB_PORT = "5432"
+  API_LAYER_URL = "https://api.apilayer.com/exchangerates_data"
+  HTTP_TIMEOUT = "120000"
+  HTTP_MAX_REDIRECTS = "5"
+  REDIS_HOST = "fly-converter-redis.upstash.io"
+  REDIS_PORT = "6379"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20

@@ -22,7 +22,7 @@ async function bootstrap() {
   const port = configService.get('PORT') || 3000;
 
   const jsonFile = fs.readFileSync(
-    join(process.cwd(), 'docs/swagger.json'),
+    join(process.cwd(), 'dist/docs/swagger.json'),
     'utf8',
   );
   const document = JSON.parse(jsonFile);
