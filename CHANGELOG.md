@@ -1,5 +1,12 @@
 
 
+## [1.2.0](https://github.com/brunalopesgois/currency-converter/compare/1.1.2...1.2.0) (2023-04-25)
+
+
+### Features
+
+* include link to prod ([e6a9b44](https://github.com/brunalopesgois/currency-converter/commit/e6a9b44a6eeda25c889a1b5f9878968fadaf4298))
+
 ### [1.1.2](https://github.com/brunalopesgois/currency-converter/compare/1.1.1...1.1.2) (2023-04-25)
 
 
