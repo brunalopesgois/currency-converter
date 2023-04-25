@@ -1,5 +1,19 @@
 
 
+## [1.1.0](https://github.com/brunalopesgois/currency-converter/compare/1.0.0...1.1.0) (2023-04-25)
+
+
+### Features
+
+* deploy app ([7b1a889](https://github.com/brunalopesgois/currency-converter/commit/7b1a88969f2583b1744d9b63a91152649143494e))
+* deploy app ([5dbd633](https://github.com/brunalopesgois/currency-converter/commit/5dbd633f5b7a7e5e193420f1ea8ee06f1a832a79))
+* envs for prod ([4bb2b10](https://github.com/brunalopesgois/currency-converter/commit/4bb2b1012ea4a8f511152fc77bf93b93813b23a4))
+
+
+### Bug Fixes
+
+* e2e tests ([5c74061](https://github.com/brunalopesgois/currency-converter/commit/5c7406115b1f6b9bf7ab206f1c34d5b74fbb55a1))
+
 ## [1.0.0](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.1.2...1.0.0) (2023-03-23)
 
 ### [0.1.2](https://github.com/brunalopesgois/eng-gruposbf-backend-typescript/compare/0.1.1...0.1.2) (2023-03-23)
