@@ -104,7 +104,7 @@
     }
   },
   "mikro-orm": {
-    "useTsNode": true,
+    "useTsNode": false,
     "configPaths": [
       "./src/config/mikro-orm.config.ts",
       "./dist/config/mikro-orm.config.js"
