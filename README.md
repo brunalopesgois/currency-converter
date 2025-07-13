@@ -1,6 +1,6 @@
 # Converter API 💱
 
-![Status](https://badgen.net/badge/api/up/green)
+![Status](https://badgen.net/badge/api/down/red)
 
 ## Descrição
 
